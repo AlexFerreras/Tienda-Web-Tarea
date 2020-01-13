@@ -1,106 +1,44 @@
 $(document).ready(function(){
     
-   $("#agregar").click
-   (function(){
+   $("#addproductbtn").click
+   ((e)=>{
+       e.preventDefault();
        $.post(
-        "HomeRegistro",
-        $("#formagregar").serialize(),
-        function(response)
+        "Product",
+        $("#addproductform").serialize(),
+        (response)=>
         {
-           if(response=="exito"){
-              window.location="index.jsp?page=inicio";
+            console.log(response);
+           if(response==="exito"){
+             // window.location="index.jsp?page=init";
            }
            else{
                 console.log(response);
            }
-        })
+        });
         
       });
    
-   $("#editar").click
+   $("#editproductform").click
    (function(){
-       $.post(
-        "Editor",
-        $("#formeditor").serialize(),
+       $.put(
+        "Product",
+        $("#editproductform").serialize(),
         function(response)
         {
-           if(response=="exito"){
-              window.location="index.jsp?page=inicio";
+           if(response==="exito"){
+              window.location="index.jsp?page=init";
            }
            else{
               console.log(response); 
            }
-        })
+        });
         
       });
-        
-        $("#nuevoUser").click(
-            function(){
-                 $.ajax(
-                {type: "POST",
-                url: "userController",
-                data:$("#registroform").serialize(),
-                success: function(response)
-                {
-                   if(response=="exito"){
-                    window.location="index.jsp?page=login";
-                    }
-                    else{
-               console.log(response);
-                        }
-                }
-                });
-            }    
-            );
-        
-     $("#loginaction").click(
-            function(){
-                 $.ajax(
-            {
-                type: "POST",
-                url: "LoginController",
-                data:$("#loginform").serialize(),
-                success: function(response)
-                {
-                   if(response == "exito"){
-                      
-                    window.location="index.jsp?page=inicio";
-                    }
-                    else if(response == "Usuario o Contraseña Incorrecta")
-                    {
-                        $("#msj").html(response);
-                    }else
-                    {
-                        console.log(response);
-                    }
-                }
-            }   ) 
-        });
-                
-             $("#salir").click(
-            function(){
-                 $.ajax(
-            {
-                type: "GET",
-                url: "LoginController",
-                data:{name:close},
-                success: function(response)
-                {
-                   if(response == "exito"){
-                      
-                    window.location="index.jsp?page=login";
-                    }
-                    else
-                    {
-                        console.log(response);
-                    }
-                }
-            }   ) 
-        });
     
 });
 
- function eliminar(elem){
+ function remove(elem){
                  var id= {id:elem.id};
                 $.ajax(
                 {type: "GET",
@@ -108,7 +46,7 @@ $(document).ready(function(){
                 data:id,
                 success: function(response)
                 {
-                   if(response=="exito"){
+                   if(response==="exito"){
                     window.location="index.jsp?page=inicio";
                     }
                     else{
