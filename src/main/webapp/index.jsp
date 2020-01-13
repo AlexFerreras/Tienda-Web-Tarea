@@ -1,5 +1,7 @@
 
 
+<%@page import="java.io.PrintWriter"%>
+<%@page import="Services.ProductDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,17 +42,10 @@
       
       <ul class="nav navbar-nav navbar-right">
            <li class="nav-item">
-               <a class="nav-link js-scroll-trigger hide" id="ag" href="index.jsp?page=AgregarContacto">Agregar Contacto</a>
+               <a class="nav-link js-scroll-trigger hide" id="ag" href="index.jsp?page=AgregarContacto">Agregar Producto</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" id="reg" href="index.jsp?page=Registrar">Registrarse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" id="log"  href="index.jsp?page=login" id="login">Loguiarse</a>
-                    </li>
-        <li class="nav-item">
-            <a class="nav-link js-scroll-trigger hide" id="salir" href="#contact">Salir</a>
-        </li>
+                  
+        
       </ul>
    
   </div><!-- /.container-fluid -->
@@ -59,8 +54,11 @@
     <div class="col col-sm-2"></div>
     <div class="container col col-sm-8" style="margin-top: 100px;">
         <%
-       String pages= "AgregarContacto";
+       String pages= "AddProduct";
         pages="WEB-INF/"+pages+".jsp";
+        
+
+        
         %>
         <jsp:include page="<%=pages%>"></jsp:include>
       

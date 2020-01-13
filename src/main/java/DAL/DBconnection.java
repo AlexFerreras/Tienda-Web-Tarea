@@ -1,45 +1,47 @@
 package DAL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import Models.Product;
+import com.sun.media.sound.InvalidFormatException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+
+
 
 public class DBconnection {
-    String host="localhost";
-    String user ="root";
-    String password="admin";
-    String db="tiendaweb";
-    protected Connection con;
-    protected PreparedStatement estado;
-    ResultSet rs;
-    Date date= new Date();
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    protected String fecha = dateFormat.format(date); 
-  
-    
-    public DBconnection() {
-    }
-    
-   public void Conectar() throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
-    String url = "jdbc:mysql://" + host + "/" + db +"?user="+user+"&password="+ password;
-        con = DriverManager.getConnection(url);
-    }
-   
-    public void Desconectar() throws SQLException{
-    
-        if (con !=null){
-        con.close();
-        System.out.println("desconecte!");
-        }
-    }
+private static Workbook wb;
+private static Sheet sh;
+private static FileInputStream fis;
+private static FileOutputStream fos;
+private static Row row;
+private static Cell cell;
+
 
     
-    
-    
-    
+    public void CreateConnection() throws IOException {
+        Workbook wb = new HSSFWorkbook();
+
+        try  (OutputStream fileOut = new FileOutputStream("./workbook.xls")) {
+            wb.write(fileOut);
+        }   catch (FileNotFoundException ex) {
+                System.err.println(ex.getMessage());
+            }
+
+
+        }
 }
