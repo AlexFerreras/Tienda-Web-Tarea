@@ -7,8 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -25,7 +24,24 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ProductDao implements GenericDAO<Product>{
     
-    final String FILE_NAME ="C:\\Users\\AFERRERAS\\Documents\\NetBeansProjects\\TiendaWeb\\DB.xlsx";
+    final String FILE_NAME ="C:\\Users\\AFERRERAS\\Documents\\NetBeansProjects\\TiendaWeb\\DBD.xlsx";
+    
+    static boolean isRowEmpty(Row row) {
+		boolean isEmpty = true;
+		DataFormatter dataFormatter = new DataFormatter();
+
+		if (row != null) {
+			for (Cell cell : row) {
+				if (dataFormatter.formatCellValue(cell).trim().length() > 0) {
+					isEmpty = false;
+					break;
+				}
+			}
+		}
+
+		return isEmpty;
+	}
+    
     
     @Override
     public List<Product> getAll() {
@@ -73,38 +89,50 @@ public class ProductDao implements GenericDAO<Product>{
 
     @Override
     public void create(Product product) {
-        Workbook workbook =  new XSSFWorkbook();
-        
+       Workbook workbook = null;
+       try {
+          workbook = new XSSFWorkbook(FILE_NAME);
+       
          Sheet sheet = workbook.getSheetAt(0);
+       
+         Iterator<Row> rowIterator = sheet.iterator();
+         while (rowIterator.hasNext()){
+            Row row = rowIterator.next();
+             if(isRowEmpty(row)){
+
+               Cell cell0 = row.createCell(0);
+               cell0.setCellValue(product.getName());
+               Cell cell1 = row.createCell(1);
+               cell1.setCellValue(product.getCategory());
+               Cell cell2 = row.createCell(2);
+               cell2.setCellValue(product.getPrice());
+               Cell cell3 = row.createCell(3);
+               cell3.setCellValue(product.getQuantity());
+               Cell cell4 = row.createCell(4);
+               cell4.setCellValue(product.getDescription());
+               Cell cell5 = row.createCell(5);
+               cell5.setCellValue(product.getDescription());
+               break;
+             }
+         
+         }
         
-        Row row = sheet.createRow(2);
-        
-        Cell cell0 = row.createCell(0);
-        cell0.setCellValue(product.getName());
-        Cell cell1 = row.createCell(1);
-        cell1.setCellValue(product.getCategory());
-        Cell cell2 = row.createCell(2);
-        cell2.setCellValue(product.getPrice());
-        Cell cell3 = row.createCell(3);
-        cell3.setCellValue(product.getQuantity());
-        Cell cell4 = row.createCell(4);
-        cell4.setCellValue(product.getDescription());
-        Cell cell5 = row.createCell(5);
-        cell5.setCellValue(product.getDescription());
-        
-        
-        try {
-            FileOutputStream fos = new FileOutputStream(FILE_NAME);
+            
+            System.out.println(FILE_NAME + " written successfully");
+            
+             FileOutputStream fos = new FileOutputStream(FILE_NAME);
             workbook.write(fos);
             fos.close();
-            System.out.println(FILE_NAME + " written successfully");
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
-		
-		
-		
     }
+            
+       
+		
+		
+		
+    
 
     @Override
     public void update(Product t, Object id) {
