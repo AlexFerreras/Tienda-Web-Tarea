@@ -12,8 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
@@ -24,7 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ProductDao implements GenericDAO<Product>{
     
-    final String FILE_NAME ="C:\\Users\\AFERRERAS\\Documents\\NetBeansProjects\\TiendaWeb\\DBD.xlsx";
+    final String FILE_NAME ="C:\\Users\\ALEX FERRERAS\\Desktop\\CrudTiendaWeb\\DBD.xlsx";
     
     static boolean isRowEmpty(Row row) {
 		boolean isEmpty = true;
@@ -46,7 +44,7 @@ public class ProductDao implements GenericDAO<Product>{
     @Override
     public List<Product> getAll() {
      List<Product> products = new ArrayList<Product>();   
-     int rowNumber =0;
+    
     FileInputStream fis;
         try {
             fis = new FileInputStream(FILE_NAME);
@@ -54,29 +52,33 @@ public class ProductDao implements GenericDAO<Product>{
 		Workbook workbook = new XSSFWorkbook(fis);
 		Sheet sheet = workbook.getSheetAt(0);
 		Iterator<Row> rowIterator = sheet.iterator();
+                
 		while (rowIterator.hasNext()) 
-        {               rowNumber++;
+                    {   
+                        
 			Row row = rowIterator.next();
 			Iterator<Cell> cellIterator = row.cellIterator();
             
-            while (cellIterator.hasNext()) 
-            {
+                        while (cellIterator.hasNext()) 
+                            {
+                            Cell cell = cellIterator.next();
+                            
+                            int index = cell.getColumnIndex()+1;
+                            // Cell cell = cellIterator.next();
+                              
+                            String name = sheet.getRow(index).getCell(0).toString();
+                            String category = sheet.getRow(index).getCell(1).toString();
+                            double price = sheet.getRow(index).getCell(2).getNumericCellValue();
+                            int quantity = (int)(sheet.getRow(index).getCell(3).getNumericCellValue());
+                            String description = sheet.getRow(index).getCell(4).toString();
+                            String suplier = sheet.getRow(index).getCell(5).toString();
+                            String date = sheet.getRow(index).getCell(6).toString();
+                             
+                            products.add(new Product(index, name,price ,quantity,category, suplier, description, date));
+                            }
+                    }
                 
-            	// Cell cell = cellIterator.next();
-                
-                String name = sheet.getRow(rowNumber).getCell(0).toString();
-                String category = sheet.getRow(rowNumber).getCell(1).toString();
-                double price = Double.parseDouble(sheet.getRow(rowNumber).getCell(2).toString());
-                int quantity = Integer.parseInt(sheet.getRow(rowNumber).getCell(3).toString());
-                String description = sheet.getRow(rowNumber).getCell(4).toString();
-                String suplier = sheet.getRow(rowNumber).getCell(5).toString();
-                String date = sheet.getRow(rowNumber).getCell(6).toString();
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
-                String strDate = dateFormat.format(date);
-                
-                products.add(new Product(name,price, quantity, category, suplier, description, strDate));
-            }}
-            
+   
         } catch (FileNotFoundException ex) {
             System.err.println(ex.getMessage());
         } catch (IOException ex) {

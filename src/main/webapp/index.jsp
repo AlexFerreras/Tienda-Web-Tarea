@@ -11,7 +11,6 @@
 
     <title>Tienda Web</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
     <link href="css/estilos.css" rel="stylesheet">
     
   
@@ -46,7 +45,7 @@
     <div class="col col-sm-2"></div>
     <div class="container col col-sm-8" style="margin-top: 100px;">
         <%
-       String pages= "init";
+       String pages= "addProduct";
        
        if(request.getParameter("page")!= null){
                pages = request.getParameter("page");
