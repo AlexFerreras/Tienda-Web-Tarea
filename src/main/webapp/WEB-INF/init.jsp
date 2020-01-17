@@ -30,7 +30,9 @@
                 </thead>
                 <tbody>
               
-                <% for (int i =0; i<products.size(); i++){%>
+                <% for (int i =0; i<products.size(); i++){
+                System.err.println(products.get(i).getName());
+                %>
                 <tr>
                     <td><%= products.get(i).getId() %></td>
                     <td><%= products.get(i).getName() %></td>

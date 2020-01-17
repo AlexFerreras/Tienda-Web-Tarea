@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/web"/>
+<servlet-mapping>
+		<servlet-name>simpleServlet</servlet-name>
+		<url-pattern>/hello</url-pattern>
+</servlet-mapping>

@@ -40,8 +40,7 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+       
         String msj=null;
         
         try {
@@ -60,6 +59,7 @@ public class ProductController extends HttpServlet {
            
         }catch(Exception e){
             msj = e.getMessage();
+            System.err.println(e.getMessage());
         }finally{
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
