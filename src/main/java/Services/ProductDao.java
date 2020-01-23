@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JFileChooser;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -21,7 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class ProductDao implements GenericDAO<Product>{
-    String PATH = "C:\\Users\\ALEX FERRERAS\\Desktop\\Tienda-Web-Tarea\\";
+    String PATH = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
     final String FILE_NAME ="DB.xlsx";
     final String FILE_PATH =PATH+FILE_NAME;
      
@@ -145,7 +146,7 @@ public class ProductDao implements GenericDAO<Product>{
             
 
     @Override
-    public void update(Product t, Object id) {
+    public void update(Product t, int id) {
         try {
             FileInputStream file = new FileInputStream(new File("C:\\update.xls"));
 
@@ -174,14 +175,60 @@ public class ProductDao implements GenericDAO<Product>{
         }
     }
 
-    @Override
-    public void delete(Object id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-       
-    
    
+    @Override
+    public Product getOneById(int id) {
+        Product product =null;
+         FileInputStream fis;
+        try {
+            
+            fis = createDB();
+            
+		Workbook workbook = new XSSFWorkbook(fis);
+		Sheet sheet = workbook.getSheetAt(0);
+                
+                            String name = sheet.getRow(id).getCell(0).toString();
+                            String category = sheet.getRow(id).getCell(1).toString();
+                            double price = sheet.getRow(id).getCell(2).getNumericCellValue();
+                            int quantity = (int)(sheet.getRow(id).getCell(3).getNumericCellValue());
+                            String description = sheet.getRow(id).getCell(4).toString();
+                            String suplier = sheet.getRow(id).getCell(5).toString();
+                            String date = sheet.getRow(id).getCell(6).toString();
+                             
+                            product = new Product(id, name,price ,quantity,category, suplier, description, date);
+                            
+                fis.close();
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }finally{
+             return product;
+        }        
+    }
+
+    @Override
+    public void delete(int id) {
+        
+        try {
+           
+            FileInputStream fis = createDB();
+            
+		Workbook workbook = new XSSFWorkbook(fis);
+		Sheet sheet = workbook.getSheetAt(0);
+                //removing row
+                
+                sheet.removeRow(sheet.getRow(id));
+                FileOutputStream out = new FileOutputStream(FILE_PATH);
+                workbook.write(out);
+                out.close();
+           
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }     
+    }
+
     
 }

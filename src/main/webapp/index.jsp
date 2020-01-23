@@ -55,16 +55,10 @@
                  pages="pages/"+pages+".jsp";
                 %>
         <jsp:include page="<%=pages%>"></jsp:include>
-        <c:set var="prueba" value ="mi nombre"/>
-        <c:out value="${prueba}">No name klk</c:out>
+      
         </div>
             </div>
         </div>
-    
-    
-    
-    
-    
     
   <!-- jquery vendor -->
         <script src="assets/js/lib/jquery.min.js"></script>

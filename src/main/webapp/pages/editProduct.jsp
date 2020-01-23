@@ -1,4 +1,9 @@
-
+<%@page import="Services.ProductDao"%>
+<%@page import="java.util.List"%>
+<%@page import="Models.Product"%>
+<%
+    Product product = new ProductDao().getOneById(Integer.parseInt((String)request.getParameter("id")));
+%>
   <center><h1 class="h1">Editar Producto</h1></center>
 <div class="col col-sm-3"></div>
     <div class="container col col-sm-6">
@@ -6,35 +11,40 @@
          
                 <div class="form-group">
                 <label for="id" >Id:</label>
-                <input type="text" class="form-control" value="" id="id" name="id" readonly>
+                <input type="text" class="form-control" value="<%= product.getId()%>" id="id" name="id" readonly>
+                </div>
+                
+                <div class="form-group" >
+                <label for="name" >Nombre:</label>
+                <input type="text" class="form-control" id="name" name="name" value="<%= product.getName()%>" required>
                 </div>
                 
                 <div class="form-group">
-                <label for="ednombre" >Nombre:</label>
-                <input type="text" class="form-control" value=""  name="ednombre" required>
+                <label for="price"  >Precio:</label>
+                <input type="text" class="form-control" id="price" name="price" value="<%= product.getPrice()%>" required/>
                 </div>
                 
                 <div class="form-group">
-                <label for="edapellido"  >Apellido:</label>
-                <input type="text" class="form-control" value=""  name="edapellido" required/>
-                </div>
-                
-                <div class="form-group">
-                <label for="edcorreo"  >Correo</label>
-                <input type="email" class="form-control" value=""  name="edcorreo"/>
+                <label for="quantity"  >Cantidad:</label>
+                <input type="text" class="form-control" id="quantity" name="quantity" value="<%= product.getQuantity()%>" required/>
                 </div>
             
                 <div class="form-group">
-                <label for="edtelefono"  >Telefono</label>
-                <input type="text" class="form-control"  value="" name="edtelefono" required/>
+                <label for="category"  >Categoria:</label>
+                <input type="text" class="form-control" id="category" value="<%= product.getCategory()%>" name="category" />
                 </div>
             
                 <div class="form-group">
-                <label for="eddireccion"  >Direccion</label>
-                <input type="text" class="form-control"  value="" name="eddireccion" />
+                <label for="suplier"  >Suplidor:</label>
+                <input type="text" class="form-control" id="suplier" value="<%= product.getSuplier()%>" name="suplier"/>
                 </div>
             
-                <input class="btn btn-primary active right" type="button" id="editar" value="Editar">
+                <div class="form-group">
+                <label for="description"  >Descripcion</label>
+                <input type="text" class="form-control" id="description" value="<%= product.getDescription()%>" name="description"/>
+                </div>
+            
+                <input class="btn btn-primary active right" type="button" id="editar" value="Guardar Cambios">
             
         </form>
         

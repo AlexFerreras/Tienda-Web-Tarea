@@ -10,13 +10,16 @@ import java.util.List;
 /**
  *
  * @author ALEX FERRERAS
+ * @param <T>
  */
 public interface GenericDAO <T>{
-     public List<T> getAll();
+    public List<T> getAll();
+    
+    public T getOneById(int id);
     
     public void create(T t);
     
-    public void update(T t,Object id);
+    public void update(T t,int id);
     
-    public void delete (Object id);
+    public void delete (int id);
 }

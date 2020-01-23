@@ -11,7 +11,7 @@
     </session-config>
      <servlet>  
    <servlet-name>HomePage</servlet-name>  
-   <servlet-class>servlet.HomeController</servlet-class>  
+   <servlet-class>HomeController</servlet-class>  
    <load-on-startup>1</load-on-startup>  
   </servlet>  
   

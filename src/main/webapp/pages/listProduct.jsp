@@ -1,20 +1,18 @@
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="Models.Product"%>
 <%@page import="Services.ProductDao"%>
 <% 
 
-    ProductDao cs= new ProductDao();
-    ArrayList<Product> products = null;
-    products =(ArrayList<Product>)cs.getAll();
+    List<Product> products  =new ProductDao().getAll();
      
 %>
 <center>
-    <div class="container col col-sm-8">
+    <div class="container col col-sm-10">
 
  <div class="table-responsive">
     
      <table class="table table-bordred table-striped" style=" border-bottom: 1px solid #ddd; border:1px solid #ddd ">
-         <h1 class="table-title">Mis Productos</h1>        
+         <h1 class="table-title">Productos</h1>        
          <thead>
                 <th>Id</th>
                 <th>Nombre</th>
@@ -24,34 +22,28 @@
                 <th>Descripcion</th>
                 <th>Suplidor</th>
                 <th>Fecha de Creacion</th>
-                <th>Editar</th>
-                <th>Eliminar</th> 
+                <th><i class="ti-layout-grid2-thumb"></i>Opciones</th>
                 </thead>
                 <tbody>
               
-                   
-                    
-                <% for (int i =0; i<products.size(); i++){
-                System.err.println(products.get(i).getName());
-                %>
+               <% for(Product product : products){%>
                 <tr>
-                    <td><%= products.get(i).getId() %></td>
-                    <td><%= products.get(i).getName() %></td>
-                    <td><%= products.get(i).getCategory()%></td>
-                   <td><%= products.get(i).getPrice()%></td>
-                   <td><%= products.get(i).getQuantity()%></td>
-                   <td><%= products.get(i).getDescription()%></td>
-                   <td><%= products.get(i).getSuplier()%></td>
-                   <td><%= products.get(i).getCreationDate()%></td>
-                    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><a class="btn btn-primary btn-ms" href="index.jsp?page=editarContacto&id=<%=products.get(i).getId()%>"  >Editar</a></p></td>
-                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-ms" onclick="eliminar(this)" id="<%=products.get(i).getId()%>">Eliminar</button></p></td>
-    
+                    <td><%= product.getId() %></td>
+                    <td><%= product.getName() %></td>
+                    <td><%= product.getCategory()%></td>
+                   <td><%= product.getPrice()%></td>
+                   <td><%= product.getQuantity()%></td>
+                   <td><%= product.getDescription()%></td>
+                   <td><%= product.getSuplier()%></td>
+                   <td><%= product.getCreationDate()%></td>
+                    <td>
+                        <a class="btn btn-primary btn-ms" href="index.jsp?page=editProduct&id=<%=product.getId()%>">Editar<i class="ti-pencil"/></i></a>
+                        <a class="btn btn-danger btn-ms" href="index.jsp?page=removeProduct&id=<%=product.getId()%>">Eliminar<i class="ti-trash"></i></a>
+                    </td>
+
                 </tr>
-               <%}%>    
+               <%}%>   
                      
-               
-               
-               
                 </tbody>           
             </table>
     </div>
