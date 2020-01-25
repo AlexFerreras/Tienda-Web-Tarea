@@ -7,7 +7,7 @@
   <center><h1 class="h1">Editar Producto</h1></center>
 <div class="col col-sm-3"></div>
     <div class="container col col-sm-6">
-        <form id="formeditor">
+        <form action="Product" method="POST">
          
                 <div class="form-group">
                 <label for="id" >Id:</label>
@@ -44,7 +44,7 @@
                 <input type="text" class="form-control" id="description" value="<%= product.getDescription()%>" name="description"/>
                 </div>
             
-                <input class="btn btn-primary active right" type="button" id="editar" value="Guardar Cambios">
+                <input class="btn btn-primary active right" type="submit" value="Guardar Cambios">
             
         </form>
         

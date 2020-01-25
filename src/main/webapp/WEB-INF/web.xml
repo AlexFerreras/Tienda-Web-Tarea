@@ -8,11 +8,18 @@
         <session-timeout>
             30
         </session-timeout>
+        
     </session-config>
-     <servlet>  
-   <servlet-name>HomePage</servlet-name>  
-   <servlet-class>HomeController</servlet-class>  
-   <load-on-startup>1</load-on-startup>  
-  </servlet>  
+    <servlet>  
+        <servlet-name>HomeController</servlet-name>  
+        <servlet-class>HomeController</servlet-class>  
+        <load-on-startup>0</load-on-startup>  
+    </servlet>  
+    <servlet-mapping>
+        <servlet-name>ProductController</servlet-name>
+        <url-pattern>/Product/*</url-pattern>
+    </servlet-mapping>
+ 
+  
   
 </web-app>

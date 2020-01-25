@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,16 +25,23 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ALEX FERRERAS
  */
-@WebServlet(name = "ProductController", urlPatterns = {"/Product"})
+@WebServlet(name = "ProductController", urlPatterns = {"/Product/*"})
 public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
         
+         
+            List<Product> products  = new ProductDao().getAll();
+            request.setAttribute("products", products);
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp?page=listProduct");
+            rd.forward(request, response);
         
-        RequestDispatcher rd = request.getRequestDispatcher("index.jsp?page=listProduct");
-        rd.forward(request, response);
+        } catch (Exception e) {
+            System.err.println("Excepcion "+e.getMessage());
+        }
        
     }
 
@@ -41,8 +49,8 @@ public class ProductController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
-        
         try {
+            ProductDao productContext = new ProductDao();
             String name = request.getParameter("name");
             int quantity = Integer.parseInt((String)request.getParameter("quantity"));
             double price = Double.parseDouble((String)request.getParameter("price"));
@@ -52,19 +60,22 @@ public class ProductController extends HttpServlet {
             Date date = Calendar.getInstance().getTime();  
             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
             String strDate = dateFormat.format(date);
-            ProductDao productContext = new ProductDao();
-            productContext.create(new Product(name,price, quantity, category, suplier, description, strDate));
-            
-           
+            if ((String)request.getParameter("id") != null){
+                int id = Integer.parseInt((String)request.getParameter("id"));
+                productContext.update(new Product(name,price, quantity, category, suplier, description, strDate),id);
+            }else{
+                productContext.create(new Product(name,price, quantity, category, suplier, description, strDate));
+            }
         }catch(Exception e){
             
             System.err.println(e.getMessage());
         }finally{
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp?page=listProduct");
-            rd.forward(request, response);
+            doGet(request, response);
         }
         
     }
+    
+   
     
     @Override
     public String getServletInfo() {

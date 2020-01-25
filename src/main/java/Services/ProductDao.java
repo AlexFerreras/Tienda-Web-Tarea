@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -24,7 +26,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ProductDao implements GenericDAO<Product>{
     String PATH = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
     final String FILE_NAME ="DB.xlsx";
-    final String FILE_PATH =PATH+FILE_NAME;
+    final String FILE_PATH =PATH+"\\"+FILE_NAME;
      
     public void setDBHeader(String file_path) throws IOException{
         Workbook workbook = new XSSFWorkbook();
@@ -60,7 +62,7 @@ public class ProductDao implements GenericDAO<Product>{
             if (file.createNewFile()) {
                 setDBHeader(FILE_PATH);
             }
-             fis = new FileInputStream(file);
+            fis = new FileInputStream(file);
             
         }catch(IOException ex){
         System.err.println("Error creando el archivo "+ex.getMessage());
@@ -146,32 +148,37 @@ public class ProductDao implements GenericDAO<Product>{
             
 
     @Override
-    public void update(Product t, int id) {
+    public void update(Product product, int id) {
         try {
-            FileInputStream file = new FileInputStream(new File("C:\\update.xls"));
+            FileInputStream fis = createDB();
+        Workbook workbook = new XSSFWorkbook(fis);
+      
+        Sheet sheet = workbook.getSheetAt(0);
+        
+         Row row = sheet.createRow(id);
+         
+               Cell cell0 = row.createCell(0);
+               cell0.setCellValue(product.getName());
+               Cell cell1 = row.createCell(1);
+               cell1.setCellValue(product.getCategory());
+               Cell cell2 = row.createCell(2);
+               cell2.setCellValue(product.getPrice());
+               Cell cell3 = row.createCell(3);
+               cell3.setCellValue(product.getQuantity());
+               Cell cell4 = row.createCell(4);
+               cell4.setCellValue(product.getDescription());
+               Cell cell5 = row.createCell(5);
+               cell5.setCellValue(product.getSuplier());
+               Cell cell6 = row.createCell(6);
+               cell6.setCellValue(product.getCreationDate());
+               System.out.println(FILE_PATH + " updated successfully");
+              
+            FileOutputStream out = new FileOutputStream(FILE_PATH);
+            workbook.write(out);
+            out.close();
 
-            HSSFWorkbook workbook = new HSSFWorkbook(file);
-            HSSFSheet sheet = workbook.getSheetAt(0);
-            Cell cell = null;
-
-            //Update the value of cell
-            cell = sheet.getRow(1).getCell(2);
-            cell.setCellValue(cell.getNumericCellValue() * 2);
-            cell = sheet.getRow(2).getCell(2);
-            cell.setCellValue(cell.getNumericCellValue() * 2);
-            cell = sheet.getRow(3).getCell(2);
-            cell.setCellValue(cell.getNumericCellValue() * 2);
-
-            file.close();
-
-            FileOutputStream outFile =new FileOutputStream(new File("C:\\update.xls"));
-            workbook.write(outFile);
-            outFile.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            System.err.println("Error in the update method "+ex.getMessage());
         }
     }
 

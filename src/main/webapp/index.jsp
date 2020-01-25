@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,6 +62,7 @@
     
   <!-- jquery vendor -->
         <script src="assets/js/lib/jquery.min.js"></script>
+        <script src="assets/js/main.js"></script>
         <script src="assets/js/lib/jquery.nanoscroller.min.js"></script>
         <!-- nano scroller -->
         <script src="assets/js/lib/menubar/sidebar.js"></script>
