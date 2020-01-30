@@ -1,9 +1,7 @@
 package Models;
 
-
 public class Product {
-    
-    
+
     int Id;
     String Name;
     double Price;
@@ -13,7 +11,6 @@ public class Product {
     String Description;
     String CreationDate;
     int status;
-    
 
     public Product() {
     }
@@ -22,8 +19,8 @@ public class Product {
         this.Id = Id;
     }
 
-    public Product( String Name, double Price, int Quantity, String Category, String Suplier, String Description, String CreationDate) {
-        
+    public Product(String Name, double Price, int Quantity, String Category, String Suplier, String Description, String CreationDate) {
+
         this.Name = Name;
         this.Price = Price;
         this.Quantity = Quantity;
@@ -32,8 +29,9 @@ public class Product {
         this.Description = Description;
         this.CreationDate = CreationDate;
     }
-     public Product(int id, String Name, double Price, int Quantity, String Category, String Suplier, String Description, String CreationDate) {
-        this.Id=id;
+
+    public Product(int id, String Name, double Price, int Quantity, String Category, String Suplier, String Description, String CreationDate) {
+        this.Id = id;
         this.Name = Name;
         this.Price = Price;
         this.Quantity = Quantity;
@@ -42,15 +40,16 @@ public class Product {
         this.Description = Description;
         this.CreationDate = CreationDate;
     }
-            
-    public Product(String Name,double Price, String Category, String Suplier, String Description, String CreationDate) {
+
+    public Product(String Name, double Price, String Category, String Suplier, String Description, String CreationDate) {
         this.Name = Name;
         this.Price = Price;
         this.Category = Category;
         this.Suplier = Suplier;
         this.Description = Description;
         this.CreationDate = CreationDate;
-    }        
+    }
+
     public int getId() {
         return Id;
     }
@@ -123,7 +122,4 @@ public class Product {
         this.status = status;
     }
 
-    
-    
-    
 }

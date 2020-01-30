@@ -12,7 +12,7 @@
     </session-config>
     <servlet>  
         <servlet-name>HomeController</servlet-name>  
-        <servlet-class>HomeController</servlet-class>  
+        <servlet-class>servlets.HomeController</servlet-class>  
         <load-on-startup>0</load-on-startup>  
     </servlet>  
     <servlet-mapping>

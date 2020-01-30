@@ -66,8 +66,6 @@
     /*  Auto date in footer and refresh
     --------------------------------------*/
 
-    document.getElementById("date-time").innerHTML = Date();
-
     $('.page-refresh').on("click", function() {
         location.reload();
     });

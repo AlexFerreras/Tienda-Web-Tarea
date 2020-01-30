@@ -11,12 +11,12 @@
                     <div class="logo"><a href="index.jsp"><!-- <img src="assets/images/logo.png" alt="" /> --><span>Gestor de Tienda</span></a></div>
                     <ul>
                         <li class="label">Main</li>
-                        <li class="active"><a class="sidebar-sub-toggle"href="index.jsp"><i class="ti-dashboard"></i> Dashboard </a>
-                            
+                        <li class="active">
+                            <a href="index.jsp"><i class="ti-dashboard"></i> Dashboard </a>
                         </li>
                         
                         <li class="label">Herramientas</li>
-                        <li class="active"><a class="sidebar-sub-toggle"><i class="ti-home"></i> Productos </a>
+                        <li ><a class="sidebar-sub-toggle"><i class="ti-home"></i> Productos </a>
                             <ul>
                                 <li><a href="Product"><i class="ti-list"></i> Listar Productos</a></li>
                                 <li><a href="index.jsp?page=addProduct"><i class="ti-save"></i> Nuevo Producto</a></li>
@@ -24,8 +24,6 @@
                             </ul>
                         </li>
                         
-                        
-                       
             </div>
         </div>
    </div>
