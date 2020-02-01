@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlret;
+package servlet;
 
 import Models.Product;
 import DAO.Impl.ProductDaoImpl;
@@ -34,7 +34,6 @@ public class ProductController extends HttpServlet {
             throws ServletException, IOException {
         try {
             if ((String) request.getParameter("id") != null) {
-                System.err.println("ESTOY EN EL ELIM");
                 int id = Integer.parseInt((String) request.getParameter("id"));
                 productContext.delete(id);
                 response.sendRedirect("Product");

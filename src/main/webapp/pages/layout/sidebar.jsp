@@ -8,11 +8,11 @@
    <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
             <div class="nano">
                 <div class="nano-content">
-                    <div class="logo"><a href="index.jsp"><!-- <img src="assets/images/logo.png" alt="" /> --><span>Gestor de Tienda</span></a></div>
+                    <div class="logo"><a href="Home"><!-- <img src="assets/images/logo.png" alt="" /> --><span>Gestor de Tienda</span></a></div>
                     <ul>
                         <li class="label">Main</li>
                         <li class="active">
-                            <a href="index.jsp"><i class="ti-dashboard"></i> Dashboard </a>
+                            <a href="Home"><i class="ti-dashboard"></i> Dashboard </a>
                         </li>
                         
                         <li class="label">Herramientas</li>
